@@ -1,29 +1,42 @@
 package ru.netology
 
 data class Post(
-    val id: Int,
+    val id: Int = 0,
     val ownerId: Int,
     val fromId: Int,
-    val createdBy: Int,
+    val createdBy: Int = 0,
     val date: Int,
     val text: String,
-    val replyOwnerId: Int,
-    val replyPostId: Int,
-    val friendsOnly: Boolean,
-    val comments: Comments,
-    val copyright: String,
-    val likes: Likes,
-    val reposts: Reposts,
-    val views: Views,
-    val postType: String,
-    val signerId: Int,
-    val canPin: Boolean,
-    val canDelete: Boolean,
-    val canEdit: Boolean,
-    val isPinned: Boolean,
-    val markedAsAds: Boolean,
-    val isFavorite: Boolean,
-    val postponnedId: Integer
+    val replyOwnerId: Int = 0,
+    val replyPostId: Int = 0,
+    val friendsOnly: Boolean = false,
+    val comments: Comments = Comments(
+        0,
+        true,
+        true,
+        true,
+        true),
+    val copyright: String = "",
+    val likes: Likes = Likes(
+        0,
+        true,
+        true,
+        true
+    ),
+    val reposts: Reposts = Reposts(
+        0,
+        true
+    ),
+    val views: Views = Views(0),
+    val postType: String = "post",
+    val signerId: Int = 0,
+    val canPin: Boolean = true,
+    val canDelete: Boolean = true,
+    val canEdit: Boolean = true,
+    val isPinned: Boolean = false,
+    val markedAsAds: Boolean = false,
+    val isFavorite: Boolean = false,
+    val postponnedId: Int = 0
 )
 
 data class Comments(
@@ -50,12 +63,24 @@ data class Views(
     val count: Int
 )
 
-object WallService {
-    private var posts = emptyArray <Post>()
+class WallService {
+    var posts = emptyArray <Post>()
+    private var numId = 0
 
     fun add(post: Post): Post {
-        posts += post
+        numId += 1
+        posts += post.copy(id = numId)
         return posts.last()
+    }
+
+    fun update(post: Post): Boolean {
+        for ((index, postInArray) in posts.withIndex()) {
+            if (postInArray.id == post.id) {
+                posts[index] = post.copy(ownerId = posts[index].ownerId, date = posts[index].date)
+                return true
+            }
+        }
+        return false
     }
 
     fun likeById(id: Int) {
