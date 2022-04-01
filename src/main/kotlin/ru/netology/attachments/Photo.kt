@@ -6,6 +6,5 @@ data class Photo(
     val ownerId: Int,
     val userId: Int,
     val text: String,
-    val date: Int,
-    val type: String = "photo"
+    val date: Int
 )

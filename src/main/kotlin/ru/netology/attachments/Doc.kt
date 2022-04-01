@@ -5,6 +5,5 @@ data class Doc(
     val ownerId: Int,
     val title: String,
     val size: Int,
-    val ext: String,
-    val type: String = "doc"
+    val ext: String
 )

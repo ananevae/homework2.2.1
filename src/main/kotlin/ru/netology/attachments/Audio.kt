@@ -7,6 +7,5 @@ data class Audio(
     val artist: String,
     val duration: Int,
     val url: String,
-    val date: Int,
-    val type: String = "audio"
+    val date: Int
 )

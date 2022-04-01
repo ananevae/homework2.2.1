@@ -2,7 +2,7 @@ package ru.netology.attachments
 
 import ru.netology.Attachment
 
-class VideoAttachment(
-    type: String = "video",
+data class VideoAttachment(
+    override val type: String = "video",
     val video: Video
-): Attachment(type)
+) : Attachment(type)

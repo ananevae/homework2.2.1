@@ -2,7 +2,7 @@ package ru.netology.attachments
 
 import ru.netology.Attachment
 
-class GraffitiAttachment(
-    type: String = "graffiti",
+data class GraffitiAttachment(
+    override val type: String = "graffiti",
     val graffiti: Graffiti
 ): Attachment(type)

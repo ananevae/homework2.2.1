@@ -7,6 +7,5 @@ data class Video(
     val description: String,
     val duration: Int,
     val userId: Int,
-    val date: Int,
-    val type: String = "video"
+    val date: Int
 )
