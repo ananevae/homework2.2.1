@@ -1,9 +1,9 @@
-package netology
+package ru.netology
 
 import org.junit.Test
 
 import org.junit.Assert.*
-import ru.netology.*
+import ru.netology.exceptions.PostNotFoundException
 
 class WallServiceTest {
 
@@ -105,5 +105,77 @@ class WallServiceTest {
 
         // проверяем результат (используйте assertTrue или assertFalse)
         assertFalse(result)
+    }
+
+    @Test
+    fun addNewComment() {
+        // создаём целевой сервис
+        val service = WallService()
+        // заполняем несколькими постами
+        service.add(Post(
+            ownerId = 101,
+            fromId = 101,
+            date = 	1095370001,
+            text = "Пост первый"
+        ))
+        service.add(Post(
+            ownerId = 102,
+            fromId = 102,
+            date = 	1095370002,
+            text = "Пост второй"
+        ))
+
+        // создаём комментарий
+        val UserComment = Comment(
+            fromId = 201,
+            date = 1095370002,
+            text = "Hello"
+        )
+
+        // добавляем комментарий
+        service.createComment(
+            comment = UserComment,
+            ownerId = 101,
+            postId = 2
+        )
+
+//        // выполняем целевое действие
+//        val result = service.comments.size
+//
+//        // проверяем результат (используйте assertTrue или assertFalse)
+//        assertEquals(1, result)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrow() {
+        // создаём целевой сервис
+        val service = WallService()
+        // заполняем несколькими постами
+        service.add(Post(
+            ownerId = 101,
+            fromId = 101,
+            date = 	1095370001,
+            text = "Пост первый"
+        ))
+        service.add(Post(
+            ownerId = 102,
+            fromId = 102,
+            date = 	1095370002,
+            text = "Пост второй"
+        ))
+
+        // создаём комментарий
+        val UserComment = Comment(
+            fromId = 201,
+            date = 1095370002,
+            text = "Hello"
+        )
+
+        // выполняем целевое действие
+        service.createComment(
+            comment = UserComment,
+            ownerId = 101,
+            postId = 5
+        )
     }
 }
